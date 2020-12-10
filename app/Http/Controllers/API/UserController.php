@@ -32,6 +32,7 @@ class UserController extends Controller
             //kalau berhasil login
             $user = Auth::user();
             $success['token'] =  $user->createToken('Laravel API Success Login')->accessToken;
+            $success['role'] = $user->role;
 
             // return response
             return response()->json(['success' => $success], $this->success_status);
@@ -65,6 +66,7 @@ class UserController extends Controller
         $new_user->name = $request->name;
         $new_user->email = $request->email;
         $new_user->password = $encrypted_password;
+        $new_user->role = 'user';
         $new_user->save();
 
         //create response token dan name(?)
