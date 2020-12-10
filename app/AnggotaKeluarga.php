@@ -12,6 +12,15 @@ class AnggotaKeluarga extends Model
     protected $fillable = [
         'nama', 'nik', 'jenis_kelamin', 'tempat_lahir', 
         'tanggal_lahir', 'agama', 'pendidikan',
-        'pekerjaan', 'tipe', 'ayah', 'ibu'
+        'pekerjaan', 'tipe', 'ayah', 'ibu', 'id_keluarga',
+        'id_user'
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class, "id_user");
+    }
+
+    public function keluarga(){
+        return $this->belongsTo(Keluarga::class, "id_keluarga");
+    }
 }

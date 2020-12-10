@@ -13,4 +13,8 @@ class Keluarga extends Model
         'nomor', 'alamat', 'rtrw', 'kodepos', 'kelurahan',
         'kecamatan', 'kabupaten', 'provinsi'
     ];
+
+    public function anggota(){
+        return $this->hasMany(AnggotaKeluarga::class, "id_keluarga");
+    }
 }

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 
 use App\User;
+use App\AnggotaKeluarga;
 
 class UserController extends Controller
 {
@@ -34,8 +35,17 @@ class UserController extends Controller
             $success['token'] =  $user->createToken('Laravel API Success Login')->accessToken;
             $role = $user->role;
 
+
+            $checkProfile = AnggotaKeluarga::where("id_user", $user->id)->find();
+            if (isset($checkProfile)){
+                $is_profile_filled = true;
+            }else{
+                $is_profile_filled = false;
+            }
+
             // return response
-            return response()->json(['success' => $success, 'role' => $role], $this->success_status);
+            return response()->json(['success' => $success, 'role' => $role,
+                                     'is_profile' => $is_profile_filled], $this->success_status);
         }
         else{
             // return reseponse gagal login / unauthorized
