@@ -15,7 +15,6 @@ class CreateAnggotaKeluargaTable extends Migration
     {
         Schema::create('anggota_keluarga', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('id_keluarga');
             $table->string('nama', 50);
             $table->string('nik', 20)->nullable();
             $table->enum('jenis_kelamin', ['LAKI-LAKI', 'PEREMPUAN']);
@@ -29,10 +28,6 @@ class CreateAnggotaKeluargaTable extends Migration
             $table->string('ibu', 50);
             $table->timestamps();
         });
-
-        // Schema::table('anggota_keluarga', function (Blueprint $table) {
-        //     $table->foreign('id_keluarga')->references('id')->on('keluarga');
-        // });
     }
 
     /**
