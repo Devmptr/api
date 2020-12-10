@@ -35,8 +35,7 @@ class UserController extends Controller
             $success['token'] =  $user->createToken('Laravel API Success Login')->accessToken;
             $role = $user->role;
 
-
-            $checkProfile = AnggotaKeluarga::where("id_user", $user->id)->find();
+            $checkProfile = AnggotaKeluarga::where("id_user", $user->id)->first();
             if (isset($checkProfile)){
                 $is_profile_filled = true;
             }else{
