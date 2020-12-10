@@ -32,10 +32,10 @@ class UserController extends Controller
             //kalau berhasil login
             $user = Auth::user();
             $success['token'] =  $user->createToken('Laravel API Success Login')->accessToken;
-            $success['role'] = $user->role;
+            $role = $user->role;
 
             // return response
-            return response()->json(['success' => $success], $this->success_status);
+            return response()->json(['success' => $success, 'role' => $role], $this->success_status);
         }
         else{
             // return reseponse gagal login / unauthorized
