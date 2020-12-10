@@ -54,6 +54,7 @@ class AnggotaKeluargaController extends Controller
             'tipe' => 'required',
             'ayah' => 'required',
             'ibu' => 'required',
+            'id_keluarga' => 'required'
         ]);
 
         // Return Response kalau gagal validasi
@@ -72,6 +73,12 @@ class AnggotaKeluargaController extends Controller
         $store->tipe = $request->tipe;
         $store->ayah = $request->ayah;
         $store->ibu = $request->ibu;
+        $store->id_keluarga = $request->id_keluarga;
+        if($request->has('id_user')){
+            if($request->id_user != 0){
+                $store->id_user = $request->id_user;
+            }
+        }
         $store->save();
 
         return response()->json([

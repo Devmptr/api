@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Keluarga;
 
+use Validator;
+
 class KeluargaController extends Controller
 {
     public $success_status = 200;
@@ -59,7 +61,17 @@ class KeluargaController extends Controller
             return response()->json(['error' => $validator->errors()], 401);
         }
 
-        
+        $new = new Keluarga;
+        $new->alamat = $request->alamat;
+        $new->rtrw = $request->rtrw;
+        $new->kodepos = $request->kodepos;
+        $new->kelurahan = $request->kelurahan;
+        $new->kecamatan = $request->kecamatan;
+        $new->kabupaten = $request->kabupaten;
+        $new->provinsi = $request->provinsi;
+        $new->save();
+
+        return response()->json(['success' => 'success','id' => $new->id], $this->success_status);
     }
 
     /**

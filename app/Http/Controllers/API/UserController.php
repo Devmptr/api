@@ -44,7 +44,7 @@ class UserController extends Controller
 
             // return response
             return response()->json(['success' => $success, 'role' => $role,
-                                     'is_profile' => $is_profile_filled], $this->success_status);
+                                     'is_profile' => $is_profile_filled, 'id' => $user->id], $this->success_status);
         }
         else{
             // return reseponse gagal login / unauthorized
