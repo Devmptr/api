@@ -21,6 +21,8 @@ Route::post('register', 'API\UserController@registerPost');
 Route::prefix('user')->group(function(){
     Route::resource('keluarga', 'API\KeluargaController');
     Route::resource('anggota', 'API\AnggotaKeluargaController');
+
+    Route::post('keluarga/firstlogin', 'API\KeluargaController@firstLogin');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
