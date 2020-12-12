@@ -313,8 +313,21 @@ class AdminController extends Controller
         $anggota->ibu = $request->ibu;
         $anggota->id_keluarga = $request->id_keluarga;
         
-        if($request->has('id_user')){
-            $anggota->id_user = $request->id_user;
+        if($request->has('email_user')){
+            if($request->email_user != "NULL"){
+                $getUser = User::where("email", $request->email_user)->first();
+                if(isset($getUser)){
+                    $anggota->id_user = $getUser->id_user;
+                }else{
+                    return response()->json([
+                        'error' => 'failed to get users'
+                    ], 401);
+                }
+            }
+        }
+
+        if($request->has("validasi")){
+            $anggota->validated = $request->validasi;
         }
 
         if($anggota->save()){
