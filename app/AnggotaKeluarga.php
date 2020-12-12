@@ -13,7 +13,7 @@ class AnggotaKeluarga extends Model
         'nama', 'nik', 'jenis_kelamin', 'tempat_lahir', 
         'tanggal_lahir', 'agama', 'pendidikan',
         'pekerjaan', 'tipe', 'ayah', 'ibu', 'id_keluarga',
-        'id_user', 'validated_at'
+        'id_user', 'validated'
     ];
 
     public function user(){
@@ -22,5 +22,9 @@ class AnggotaKeluarga extends Model
 
     public function keluarga(){
         return $this->belongsTo(Keluarga::class, "id_keluarga");
+    }
+
+    public function validasi(){
+        return $this->hasMany(Validasi::class, "id_anggota");
     }
 }

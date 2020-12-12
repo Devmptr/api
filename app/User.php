@@ -41,4 +41,8 @@ class User extends Authenticatable
     public function anggota(){
         return $this->hasOne(AnggotaKeluarga::class, "id_user");
     }
+
+    public function validasi(){
+        return $this->hasMany(Validasi::class, 'id_admin');
+    }
 }

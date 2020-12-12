@@ -85,10 +85,5 @@ class UserController extends Controller
 
         //return response
         return response()->json(['success' => $success], $this->success_status);
-
-    }
-
-    public function test(){
-        return response()->json(['sucesss' => 'nais'],  $this->success_status);
     }
 }
