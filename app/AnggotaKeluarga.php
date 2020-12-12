@@ -13,7 +13,7 @@ class AnggotaKeluarga extends Model
         'nama', 'nik', 'jenis_kelamin', 'tempat_lahir', 
         'tanggal_lahir', 'agama', 'pendidikan',
         'pekerjaan', 'tipe', 'ayah', 'ibu', 'id_keluarga',
-        'id_user'
+        'id_user', 'validated_at'
     ];
 
     public function user(){
