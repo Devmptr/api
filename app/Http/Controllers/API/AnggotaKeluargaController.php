@@ -54,13 +54,15 @@ class AnggotaKeluargaController extends Controller
             'tipe' => 'required',
             'ayah' => 'required',
             'ibu' => 'required',
-            'id_keluarga' => 'required'
+            'id_user' => 'required'
         ]);
 
         // Return Response kalau gagal validasi
         if($validator->fails()){
             return response()->json(['error' => $validator->errors()], 401);
         }
+
+        $user = AnggotaKeluarga::where("id_user", $request->id_user)->first();
 
         $store = new AnggotaKeluarga;
         $store->nama = $request->nama;
@@ -73,12 +75,7 @@ class AnggotaKeluargaController extends Controller
         $store->tipe = $request->tipe;
         $store->ayah = $request->ayah;
         $store->ibu = $request->ibu;
-        $store->id_keluarga = $request->id_keluarga;
-        if($request->has('id_user')){
-            if($request->id_user != 0){
-                $store->id_user = $request->id_user;
-            }
-        }
+        $store->id_keluarga = $user->id_keluarga;
         $store->save();
 
         return response()->json([
