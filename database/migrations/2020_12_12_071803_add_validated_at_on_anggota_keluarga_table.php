@@ -15,7 +15,7 @@ class AddValidatedAtOnAnggotaKeluargaTable extends Migration
     {
         //
         Schema::table('anggota_keluarga', function (Blueprint $table) {
-            $table->timestamp('validated_at')->nullable();
+            $table->enum('validated', ['process', 'problem', 'validated'])->default('process');
         });
     }
 
