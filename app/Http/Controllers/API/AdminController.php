@@ -330,7 +330,6 @@ class AdminController extends Controller
     
     public function updateAnggota(Request $request, $id){
         //Validasi Request
-        return response()->json(['success' => 'success'], 200);
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'jenis_kelamin' => 'required',
@@ -356,6 +355,7 @@ class AdminController extends Controller
                 'error' => 'anggota not found'
             ], 401);
         }
+        return response()->json(['success' => 'success'], 200);
 
         $anggota->nama = $request->nama;
         $anggota->jenis_kelamin = $request->jenis_kelamin;
