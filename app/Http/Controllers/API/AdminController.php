@@ -355,8 +355,6 @@ class AdminController extends Controller
                 'error' => 'anggota not found'
             ], 401);
         }
-        return response()->json(['success' => 'success'], 200);
-
         $anggota->nama = $request->nama;
         $anggota->jenis_kelamin = $request->jenis_kelamin;
         $anggota->tempat_lahir = $request->tempat_lahir;
@@ -372,6 +370,9 @@ class AdminController extends Controller
         if($request->has('id_user')){
             $anggota->id_user = $request->id_user;
         }
+        
+        return response()->json(['success' => 'success'], 200);
+
 
         if($anggota->save()){
             return response()->json([
