@@ -36,7 +36,7 @@ class UserController extends Controller
             $role = $user->role;
 
             $checkProfile = AnggotaKeluarga::where("id_user", $user->id)->first();
-            return response()->json($checkProfile);
+            
             if (isset($checkProfile)){
                 $is_profile_filled = true;
             }else{
