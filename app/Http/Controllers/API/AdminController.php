@@ -370,9 +370,6 @@ class AdminController extends Controller
         if($request->has('id_user')){
             $anggota->id_user = $request->id_user;
         }
-        
-        return response()->json(['success' => 'success'], 200);
-
 
         if($anggota->save()){
             return response()->json([
