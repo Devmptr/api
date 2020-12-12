@@ -22,6 +22,7 @@ Route::prefix('user')->group(function(){
     Route::resource('keluarga', 'API\KeluargaController');
     Route::resource('anggota', 'API\AnggotaKeluargaController');
 
+    Route::get('anggota/{id}/selected', 'API\AnggotaKeluargaController@getAnggotaKeluarga');
     Route::post('keluarga/firstlogin', 'API\KeluargaController@firstLogin');
 });
 

@@ -180,4 +180,14 @@ class AnggotaKeluargaController extends Controller
             'success' => 'success'
         ], $this->success_status);
     }
+
+    public function getAnggotaKeluarga($id){
+        $user = AnggotaKeluarga::where("id_user", $id)->first();
+        if( isset($user) ){
+            $anggota = AnggotaKeluarga::where("id_keluarga", $user->id_keluarga)->get();
+            return response()->json([ 'anggota' => $anggota ], $this->success_status);
+        }else{
+            return response()->json(['error' => 'user not found in anggota'], 401);
+        }
+    }
 }
