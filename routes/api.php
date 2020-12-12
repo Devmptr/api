@@ -47,6 +47,7 @@ Route::prefix('admin')->group(function(){
     Route::post('anggota/create', 'API\AdminController@createAnggota');
     Route::post('anggota/update/{id}', 'API\AdminController@updateAnggota');
     Route::get('anggota/delete/{id}', 'API\AdminController@deleteAnggota');
+    Route::get('anggota/keluarga/{id}', 'API\AdminController@keluargaAnggota');
 
     //validasi
     Route::post('anggota/validasi/{id}', 'API\AdminController@validasiAnggota');

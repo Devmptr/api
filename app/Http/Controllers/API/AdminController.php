@@ -401,7 +401,15 @@ class AdminController extends Controller
                 ], 401);
             }
         }
+    }
 
+    public function keluargaAnggota($id){
+        $anggota = AnggotaKeluarga::where('id_keluarga', $id)->get();
+        
+        return response()->json([
+            'success' => 'fetch keluarga anggota',
+            'anggota' => $anggota
+        ], 200);
     }
 
     //VALIDASI
