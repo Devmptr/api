@@ -385,7 +385,7 @@ class AdminController extends Controller
             if($request->email_user != "NULL"){
                 $getUser = User::where("email", $request->email_user)->first();
                 if(isset($getUser)){
-                    $anggota->id_user = $getUser->id_user;
+                    $anggota->id_user = $getUser->id;
                 }else{
                     return response()->json([
                         'error' => 'failed to get users'
