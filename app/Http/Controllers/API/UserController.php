@@ -118,4 +118,51 @@ class UserController extends Controller
             return response()->json(['error' => 'user not found'], 401);
         }
     }
+
+    public function sendFbNotif(Request $request){
+        //Validasi Request
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'message' => 'required',
+            'token' => 'required'
+        ]);
+
+        // Return Response kalau gagal validasi
+        if($validator->fails()){
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://fcm.googleapis.com/fcm/send',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+            "to" : "'. $request->token .'",
+            "notification" : {
+                "body" : "'. $request->title .'",
+                "title" : "'. $request->message .'"
+            },
+            "data" : {
+                "body" : "'. $request->title .'",
+                "message" : "'. $request->message .'"
+            }
+        }',
+        CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json',
+            'Authorization: key=AAAAun8XHPU:APA91bFrmAkREgFp11WWJJ3er6lHPAjq2Pa3Jb22H19WN7Xz0i-sJjnNDu3n4nwm1xECrqgRx6p_MWyiqPwBwkDp23HKiCzPskM-VMwjvidWoPmaTbJBsnCc4OoQmqU4sn2HBX0aVifK'
+        ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        return response()->json(['success' => 'success send notification'], $this->success_status);
+    }
 }

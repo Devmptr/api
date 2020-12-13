@@ -18,6 +18,7 @@ Route::post('login', 'API\UserController@loginPost');
 Route::get('test', 'API\UserController@test');
 Route::post('register', 'API\UserController@registerPost');
 Route::post('set/fb/token/{id}', 'API\UserController@setFbToken');
+Route::post('send/notif', 'API\UserController@sendFbNotif');
 Route::get('delete/fb/token/{id}', 'API\UserController@deleteFbToken');
 
 Route::prefix('user')->group(function(){
