@@ -267,9 +267,11 @@ class AdminController extends Controller
         $anggota = AnggotaKeluarga::find($id);
 
         if(isset($anggota)){
+            $token_fb = $this->getKeluargaToken($anggota->id_keluarga);
             return response()->json([
                 'success' => 'fetch one anggota',
-                'anggota' => $anggota
+                'anggota' => $anggota,
+                'token_fb' => $token_fb
             ], 200);
         }else{
             return response()->json([
@@ -277,6 +279,23 @@ class AdminController extends Controller
             ], 401);
         }
 
+    }
+
+    private function getKeluargaToken($id_kel){
+        $anggotas = AnggotaKeluarga::where("id_keluarga", $id_kel)->get();
+        foreach($anggotas as $anggota){
+            if($anggota->id_user != NULL){
+                $user = User::find($anggota->id_user);
+                if(isset($user)){
+                    if($user->fb_token != null){
+                        return $user->fb_token;
+                    }else{
+                        return '';
+                    }
+                }
+            }
+        }
+        return '';
     }
 
     public function createAnggota(Request $request){
