@@ -87,6 +87,33 @@ class UserController extends Controller
         return response()->json(['success' => $success], $this->success_status);
     }
 
+    public function profileUpdate($id, Request $request){
+        //Validasi Request
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required'
+        ]);
+
+        // Return Response kalau gagal validasi
+        if($validator->fails()){
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+
+        //encrypt plain text password
+        $encrypted_password = bcrypt($request->password);
+
+        //buat user baru
+        $new_user = User::find($id);
+        $new_user->name = $request->name;
+        $new_user->email = $request->email;
+        $new_user->password = $encrypted_password;
+        $new_user->save();
+
+        //return response
+        return response()->json(['success' => "successfully update user"], $this->success_status);
+    }
+
     public function setFbToken($id, Request $request){
         $user = User::find($id);
 

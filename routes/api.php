@@ -27,6 +27,7 @@ Route::prefix('user')->group(function(){
 
     Route::get('anggota/{id}/selected', 'API\AnggotaKeluargaController@getAnggotaKeluarga');
     Route::post('keluarga/firstlogin', 'API\KeluargaController@firstLogin');
+    Route::post('profile/update/{id}', 'API\UserController@profileUpdate');
 });
 
 Route::prefix('admin')->group(function(){
