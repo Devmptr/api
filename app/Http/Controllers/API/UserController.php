@@ -198,7 +198,8 @@ class UserController extends Controller
         $user = User::find($id);
 
         if(isset($user)){
-            $keluarga = Keluarga::find($user->id_keluarga);
+            $anggota = AnggotaKeluarga::where("id_user", $user->id)->first();
+            $keluarga = Keluarga::find($anggota->id_keluarga);
             if(isset($keluarga)){
                 return response()->json(['keluarga' => $keluarga], 200);
             }else{
@@ -228,7 +229,8 @@ class UserController extends Controller
         $user = User::find($id);
 
         if(isset($user)){
-            $keluarga = Keluarga::find($user->id_keluarga);
+            $anggota = AnggotaKeluarga::where("id_user", $user->id)->first();
+            $keluarga = Keluarga::find($anggota->id_keluarga);
             if(isset($keluarga)){
                 $keluarga->alamat = $request->alamat;
                 $keluarga->rtrw = $request->rtrw;
