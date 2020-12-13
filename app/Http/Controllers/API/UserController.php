@@ -10,6 +10,7 @@ use Validator;
 
 use App\User;
 use App\AnggotaKeluarga;
+use App\Keluarga;
 
 class UserController extends Controller
 {
@@ -237,7 +238,7 @@ class UserController extends Controller
                 $keluarga->kabupaten = $request->kabupaten;
                 $keluarga->provinsi = $request->provinsi;
                 $keluarga->save();
-                
+
                 return response()->json(['success' => 'success update keluarga'], 200);
             }else{
                 return response()->json(['error' => 'keluarga not found'], 401);
