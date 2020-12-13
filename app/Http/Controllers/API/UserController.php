@@ -192,4 +192,58 @@ class UserController extends Controller
         curl_close($curl);
         return response()->json(['success' => 'success send notification'], $this->success_status);
     }
+
+    public function getUserKeluarga($id){
+        $user = User::find($id);
+
+        if(isset($user)){
+            $keluarga = Keluarga::find($user->id_keluarga);
+            if(isset($keluarga)){
+                return response()->json(['keluarga' => $keluarga], 200);
+            }else{
+                return response()->json(['error' => 'keluarga not found'], 401);
+            }
+        }else{
+            return response()->json(['error' => 'user not found'], 401);
+        }
+    }
+
+    public function updateUserKeluarga($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'alamat' => 'required',
+            'rtrw' => 'required',
+            'kodepos' => 'required',
+            'kelurahan' => 'required',
+            'kecamatan' => 'required',
+            'kabupaten' => 'required',
+            'provinsi' => 'required'
+        ]);
+
+        // Return Response kalau gagal validasi
+        if($validator->fails()){
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+
+        $user = User::find($id);
+
+        if(isset($user)){
+            $keluarga = Keluarga::find($user->id_keluarga);
+            if(isset($keluarga)){
+                $keluarga->alamat = $request->alamat;
+                $keluarga->rtrw = $request->rtrw;
+                $keluarga->kodepos = $request->kodepos;
+                $keluarga->kelurahan = $request->kelurahan;
+                $keluarga->kecamatan = $request->kecamatan;
+                $keluarga->kabupaten = $request->kabupaten;
+                $keluarga->provinsi = $request->provinsi;
+                $keluarga->save();
+                
+                return response()->json(['success' => 'success update keluarga'], 200);
+            }else{
+                return response()->json(['error' => 'keluarga not found'], 401);
+            }
+        }else{
+            return response()->json(['error' => 'user not found'], 401);
+        }
+    }
 }
