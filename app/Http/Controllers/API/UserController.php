@@ -86,4 +86,36 @@ class UserController extends Controller
         //return response
         return response()->json(['success' => $success], $this->success_status);
     }
+
+    public function setFbToken($id, Request $request){
+        $user = User::find($id);
+
+        if (isset($user)){
+            $user->fb_token = $request->token;
+            if($user->save()){
+                return response()->json(['success' => 'berhasil set token'], $this->success_status);
+            }else{
+                return response()->json(['error' => 'gagal set token'], 401);
+            }
+        }else{
+            return response()->json(['error' => 'user not found'], 401);
+        }
+    }
+
+    public function deleteFbToken($id){
+        
+        $user = User::find($id);
+
+        if (isset($user)){
+            $user->fb_token = Null;
+            
+            if($user->save()){
+                return response()->json(['success' => 'berhasil delete token'], $this->success_status);
+            }else{
+                return response()->json(['error' => 'gagal set token'], 401);
+            }
+        }else{
+            return response()->json(['error' => 'user not found'], 401);
+        }
+    }
 }
