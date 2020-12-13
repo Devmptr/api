@@ -91,7 +91,7 @@ class UserController extends Controller
         //Validasi Request
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email',
             'password' => 'required'
         ]);
 
